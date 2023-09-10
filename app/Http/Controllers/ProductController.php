@@ -59,4 +59,8 @@ class ProductController extends Controller
         $products = Product::search($request->term)->get();
         return view('products.index', ['products'=>$products]);
     }
+
+    public function test(){
+        return Product::get();
+    }
 }
