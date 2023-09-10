@@ -35,10 +35,20 @@
 
     <div class="container">
 
+<<<<<<< HEAD
         <div class="cover">
       <div class="front">
         <img src="{{asset('assets/Images/backImg.jpg')}}" alt="">
         
+=======
+        {{-- <div class="cover">
+      <div class="front">
+        <img src="{{asset('images/frontImg.jpg')}}" alt="">
+        <div class="text">
+          <span class="text-1">Every new friend is a <br> new adventure</span>
+          <span class="text-2">Let's get connected</span>
+        </div>
+>>>>>>> a9f5bcfe527361058a8556ee7612f1974563f097
       </div>
       <div class="back">
         <img class="backImg" src="images/backImg.jpg" alt="">
@@ -47,7 +57,11 @@
           <span class="text-2">Let's get started</span>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
+=======
+    </div> --}}
+>>>>>>> a9f5bcfe527361058a8556ee7612f1974563f097
         <div class="forms">
             <div class="form-content justify-content-right">
                 <div class="login-form">

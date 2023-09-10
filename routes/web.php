@@ -50,4 +50,5 @@ Route::middleware(['auth'])->controller(PostController::class)->group(function (
 Route::get('/login', [Controller::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [Controller::class, 'login'])->name('loginData');
 Route::get('/register', [Controller::class, 'showRegisterForm'])->name('register')->middleware('guest');
+
 Route::post('/register', [Controller::class, 'register'])->name('registerData');
