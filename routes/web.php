@@ -18,27 +18,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('components.index', ['post'=>Post::get()]);
+    return view('components.index', ['post' => Post::get()]);
 });
 
 
 // Route::resource('posts', PostController::class);
-Route::resource('products', ProductController::class);
-Route::post('products/search', [ProductController::class, 'search'])->name('products.search');
+
 //the wanted routes are listed when (php artisan route:list)
 
 //next simple curd using blade
 
 //route grouping
-// Route::controller(PostController::class)->group(function (){
-//     Route::get('posts', 'index')->name('posts.index');
+Route::middleware(['auth'])->controller(PostController::class)->group(function () {
+    //     Route::get('posts', 'index')->name('posts.index');
 //     Route::get('posts/create', 'create')->name('posts.create');
 //     Route::get('posts/{id}', 'show')->name('posts.show');
 //     Route::delete('posts/{id}', 'destroy')->name('posts.destroy');
 //     Route::get('posts/{id}/edit', 'edit');
-   
-//    Route::get('render-blade', 'renderBlade');
+
+    //    Route::get('render-blade', 'renderBlade');
 //    Route::get('/users/{user}/posts/{post}', 'getUsersPost')->scopeBindings();
-//    Route::get('/use-apost/{post:user_id}', 'getAPost')->scopeBindings();
-//    Route::get('/search/users/{user}/posts/{key}', 'search')->scopeBindings();
-// });
+    Route::get('/use-apost/{post:user_id}', 'getAPost')->scopeBindings();
+    Route::resource('products', ProductController::class);
+    Route::get('test', [ProductController::class, 'test']);
+    Route::post('products/search', [ProductController::class, 'search'])->name('products.search');
+    Route::get('logout', [Controller::class, 'logout'])->name('logout');
+    
+    //    Route::get('/search/users/{user}/posts/{key}', 'search')->scopeBindings();
+});
+
+Route::get('/login', [Controller::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('/login', [Controller::class, 'login'])->name('loginData');
+Route::get('/register', [Controller::class, 'showRegisterForm'])->name('register')->middleware('guest');
+Route::post('/register', [Controller::class, 'register'])->name('registerData');
