@@ -48,8 +48,12 @@ class Controller extends BaseController
     }
     function register(RegisterRequest $request)
     {
-        $request->password = Hash::make($request->password);
-        $user = User::create($request->all());
+        $pwd = Hash::make($request->password);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $pwd
+        ]);
 
         auth()->login($user);
         return redirect()->route('products.index')->with('success', "Account successfully registered.");

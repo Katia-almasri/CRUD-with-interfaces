@@ -9,38 +9,48 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-   
-    public function index()
+    /**
+     * ver very important constructor
+     * specially for making the middleware
+     * and concern specific methods without another
+     */
+    public function __construct()
     {
-        return view('products.index', ['products'=>Product::orderBy('created_at', 'DESC')->get()]);
+        $this->middleware('is_admin')->only(['create', 'edit', 'destroy']);
     }
 
-   
+    public function index()
+    {
+        return view('products.index', ['products' => Product::orderBy('created_at', 'DESC')->get()]);
+        
+    }
+
+
     public function create()
     {
         return view('products.forms.create');
     }
 
-   
+
     public function store(StoreProductRequest $request)
     {
         Product::create($request->all());
         return redirect()->route('products.create')->with('success', 'Product added successfully');
     }
 
-   
+
     public function show(Product $product)
     {
-        return view('products.show', ['product'=>$product]);
+        return view('products.show', ['product' => $product]);
     }
 
-  
+
     public function edit(Product $product)
     {
-        return view('products.forms.edit', ['product'=>$product]);
+        return view('products.forms.edit', ['product' => $product]);
     }
 
-    
+
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->all());
@@ -48,19 +58,21 @@ class ProductController extends Controller
 
     }
 
-   
+
     public function destroy(Product $product)
     {
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $products = Product::search($request->term)->get();
-        return view('products.index', ['products'=>$products]);
+        return view('products.index', ['products' => $products]);
     }
 
-    public function test(){
+    public function test()
+    {
         return Product::get();
     }
 }
